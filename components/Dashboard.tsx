@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useEffect, useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuestionsList from "./QuestionsList";
 import QuestionContainer from "./QuestionContainer";
+import { getQuestions, Question } from "@/app/api/questions";
 const Dashboard: React.FC = () => {
     const [totalQuestions, setTotalQuestions] = useState(30);
     const [answers, setAnswers] = useState<boolean[]>(
@@ -12,10 +13,21 @@ const Dashboard: React.FC = () => {
     );
     const [totalAnswered, setTotalAnswered] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(1);
+    const [question, setQuestion] = useState<Question>();
+    const [loading, setLoading] = useState(false);
 
     const changeQuestion = (pageNumber: number) => {
         setCurrentQuestion(pageNumber);
     };
+
+    useEffect(() => {
+        (async () => {
+            setLoading(()=>true);
+            const questions = await getQuestions();
+            setQuestion(questions[currentQuestion - 1]);
+            setLoading(()=>false);
+        })();
+    },[currentQuestion]);
 
     return (
         <div className="flex flex-col flex-grow">
@@ -33,7 +45,7 @@ const Dashboard: React.FC = () => {
                     handleQuestionChange={changeQuestion}
                     currentQuestion={currentQuestion}
                 />
-                <QuestionContainer />
+                <QuestionContainer question={question} loading={loading} />
             </div>
         </div>
     );

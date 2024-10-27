@@ -1,4 +1,4 @@
-interface Question {
+export interface Question {
     id: string;
     question: string;
     options: Array<{ id: string; option: string }>;
