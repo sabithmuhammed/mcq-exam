@@ -2,7 +2,7 @@ import React from 'react'
 
 const QuestionContainer:React.FC = () => {
   return (
-    <div>
+    <div className=' w-full md:max-w-[850px] bg-white rounded-md'>
       
     </div>
   )
