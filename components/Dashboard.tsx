@@ -4,30 +4,52 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuestionsList from "./QuestionsList";
 import QuestionContainer from "./QuestionContainer";
 import { getQuestions, Question } from "@/app/api/questions";
+
+export interface answerType {
+    qId: string;
+    answered: boolean;
+    option: null | string;
+}
+
 const Dashboard: React.FC = () => {
-    const [totalQuestions, setTotalQuestions] = useState(30);
-    const [answers, setAnswers] = useState<boolean[]>(
-        Array(totalQuestions)
+    const TOTAL_QUESTIONS = 30;
+    const [answers, setAnswers] = useState<answerType[]>(
+        Array(TOTAL_QUESTIONS)
             .fill(null)
-            .map(() => false)
+            .map((_, index) => ({
+                qId: `q${index + 1}`,
+                answered: false,
+                option: null,
+            }))
     );
-    const [totalAnswered, setTotalAnswered] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [question, setQuestion] = useState<Question>();
     const [loading, setLoading] = useState(false);
 
     const changeQuestion = (pageNumber: number) => {
+        if (pageNumber < 1 || pageNumber > TOTAL_QUESTIONS) return;
+        
         setCurrentQuestion(pageNumber);
     };
 
     useEffect(() => {
         (async () => {
-            setLoading(()=>true);
+            setLoading(() => true);
             const questions = await getQuestions();
             setQuestion(questions[currentQuestion - 1]);
-            setLoading(()=>false);
+            setLoading(() => false);
         })();
-    },[currentQuestion]);
+    }, [currentQuestion]);
+
+    const selectAnswer = (questionId: string, option: string) => {
+        const updatedAnswers = answers.map((item) => {
+            if (item.qId == questionId) {
+                return { ...item, answered: true, option };
+            }
+            return item;
+        });
+        setAnswers(updatedAnswers);
+    };
 
     return (
         <div className="flex flex-col flex-grow">
@@ -45,7 +67,15 @@ const Dashboard: React.FC = () => {
                     handleQuestionChange={changeQuestion}
                     currentQuestion={currentQuestion}
                 />
-                <QuestionContainer question={question} loading={loading} />
+                <QuestionContainer
+                    question={question}
+                    loading={loading}
+                    answers={answers}
+                    selectAnswer={selectAnswer}
+                    totalQuestions={TOTAL_QUESTIONS}
+                    currentQuestion={currentQuestion}
+                    handleQuestionChange={changeQuestion}
+                />
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Timer: React.FC = () => {
-    const [time, setTime] = useState(360);
+    const [time, setTime] = useState(3600);
 
     useEffect(() => {
         const timerInterval = setInterval(() => {
