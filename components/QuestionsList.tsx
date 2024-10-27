@@ -10,6 +10,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Timer from "./Timer";
 
 type QuestionListProps = {
     answers: boolean[];
@@ -26,16 +27,18 @@ const QuestionsList: React.FC<QuestionListProps> = ({
     return (
         <div
             className={
-                (collapsed ? `max-md:h-[116px]` : `pb-4`) +
+                (collapsed ? `max-md:h-[112px]` : `pb-4`) +
                 ` w-full md:max-w-[320px]  bg-white rounded-md max-md:px-5 md:p-5 overflow-hidden`
             }
         >
             <div className="flex justify-between items-center">
-                <div className="py-4 flex gap-5">
+                <div className="py-4 flex gap-5 items-center">
                     <h2 className="md:text-lg max-md:text-gray-500 max-md:text-sm md:font-medium">
                         Overview
                     </h2>
-                    timer
+                    <div className="md:hidden">
+                        <Timer />
+                    </div>
                 </div>
                 <div
                     className="md:hidden"

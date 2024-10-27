@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({
     subsets: ["latin"],
     display: "swap",
+    adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

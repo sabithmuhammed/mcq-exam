@@ -31,7 +31,7 @@ const Sidebar: React.FC = () => {
     ];
 
     return (
-        <div className="bg-white w-full md:max-w-[240px] p-3 md:h-screen relative">
+        <div className="bg-white w-full md:max-w-[240px] p-3 md:h-screen relative border-r-[1px]">
             <div className="flex px-2 justify-between">
                 <div className=" flex gap-2">
                     <div className="flex items-center">
