@@ -13,12 +13,12 @@ import SidebarItem, { SidebarItemProps } from "./SidebarItem";
 
 const Sidebar: React.FC = () => {
     const [navOpen, setNavOpen] = useState(false);
-    
+
     const navItems: SidebarItemProps[] = [
         {
             text: "Dashboard",
             href: "/",
-            icon: <LayoutDashboard strokeWidth={1.7} />,
+            icon: <LayoutDashboard strokeWidth={1.7} fill="#fff" />,
         },
         { text: "Find", href: "/find", icon: <Search size={20} /> },
         { text: "Inbox", href: "/inbox", icon: <Mail size={20} /> },
@@ -55,7 +55,7 @@ const Sidebar: React.FC = () => {
                 <nav
                     className={`${
                         navOpen ? "" : "max-md:hidden"
-                    } max-md:absolute bg-white max-md:right-0 max-md:top-15 h-screen  max-md:pt-10 max-md:px-2`}
+                    } max-md:absolute bg-white max-md:right-0 max-md:top-15 max-md:h-screen   max-md:pt-10 max-md:px-2`}
                 >
                     <ul className="space-y-2">
                         {navItems.length !== 0 &&

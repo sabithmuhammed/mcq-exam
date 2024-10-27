@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -26,8 +27,10 @@ export default function RootLayout({
                 className={`${inter.className} antialiased flex max-md:flex-col bg-[#E6E9EE]`}
             >
                 <Sidebar />
-                {/* <Navbar /> */}
-                <main>{children}</main>
+                <div className="flex-grow flex flex-col">
+                    <Navbar />
+                    <main className="flex flex-grow">{children}</main>
+                </div>
             </body>
         </html>
     );
