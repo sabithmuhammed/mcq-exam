@@ -9,7 +9,7 @@ import { Separator } from "@radix-ui/react-separator";
 const ResultContainer: React.FC = () => {
     return (
         <div className=" flex-grow flex-col p-4 flex justify-center items-center">
-            <h1 className={"font-serif text-3xl font-semibold mb-5"}>Your results based on your answers:</h1>
+            <h1 className={"font-serif text-3xl font-semibold mb-5 max-md:hidden"}>Your results based on your answers:</h1>
             <div className=" bg-white rounded-xl p-4 md:p-7 max-w-[720px] h-fit">
                 <div className="flex flex-col md:flex-row">
                     <div className="md:w-[60%]">
@@ -35,8 +35,7 @@ const ResultContainer: React.FC = () => {
                         <ChartComponent />
                     </div>
                 </div>
-                <div className="">
-                <Separator className="my-5"  />
+                <div className="border-[1px] my-6">
                 </div>
                 <div className=" flex max-md:justify-between md:gap-3">
                     <Button className="text-sm rounded-full max-md:hidden">

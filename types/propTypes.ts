@@ -22,3 +22,9 @@ export interface SidebarItemProps {
     icon: ReactNode;
     href: string;
 }
+
+export interface QuestionListProps {
+    answers: answerType[];
+    currentQuestion: number;
+    handleQuestionChange: (pageNumber: number) => void;
+}

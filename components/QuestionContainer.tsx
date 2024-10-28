@@ -34,6 +34,7 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
     };
 
     const notMinumumSelected = (): boolean => {
+        // function to check if the user attended at least 50% the questions; 
         return (
             answers.reduce(
                 (acc, { answered }) => (answered ? acc + 1 : acc),

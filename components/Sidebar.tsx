@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
                     </div>
                     <h2 className="text-2xl font-bold">ELT Global</h2>
                 </div>
-                <div className="flex items-center text-gray-500">
+                <div className="flex items-center md:text-gray-500">
                     <AlignJustify onClick={() => setNavOpen(!navOpen)} />
                 </div>
             </div>

@@ -24,6 +24,8 @@ const Timer: React.FC = () => {
             mins < 10 ? "0" : ""
         }${mins}:${sec < 10 ? "0" : ""}${sec}`;
     };
+
+    
     return (
         <div
             className={` ${

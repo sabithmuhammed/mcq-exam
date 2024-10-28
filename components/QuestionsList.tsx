@@ -11,13 +11,9 @@ import {
 } from "@/components/ui/pagination";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Timer from "./Timer";
-import { answerType } from "@/types/propTypes";
+import { QuestionListProps } from "@/types/propTypes";
 
-type QuestionListProps = {
-    answers: answerType[];
-    currentQuestion: number;
-    handleQuestionChange: (pageNumber: number) => void;
-};
+
 
 const QuestionsList: React.FC<QuestionListProps> = ({
     answers,
@@ -57,7 +53,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({
                 <Pagination>
                     <PaginationContent className=" w-full">
                         <PaginationItem className="flex gap-3 md:gap-2 flex-wrap ">
-                            {answers.map(({answered}, index) => (
+                            {answers.map(({ answered }, index) => (
                                 <PaginationLink
                                     key={index}
                                     onClick={() =>
