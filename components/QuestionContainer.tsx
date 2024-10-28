@@ -1,12 +1,10 @@
+"use client";
 import React from "react";
 import Timer from "./Timer";
-import { Source_Sans_3 } from "next/font/google";
 import { Separator } from "./ui/separator";
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Question } from "@/app/api/questions";
 import { Skeleton } from "./ui/skeleton";
-import { answerType } from "./Dashboard";
 import { Button } from "./ui/button";
 import {
     Pagination,
@@ -16,21 +14,10 @@ import {
     PaginationPrevious,
 } from "./ui/pagination";
 import { Flag } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { answerType, QuestionContainerProps } from "@/types/propTypes";
 
-const sourceSans = Source_Sans_3({
-    subsets: ["latin"],
-    display: "swap",
-    adjustFontFallback: false,
-});
-type QuestionContainerProps = {
-    question: Question | undefined;
-    loading: boolean;
-    answers: answerType[];
-    selectAnswer: (questionId: string, option: string) => void;
-    totalQuestions: number;
-    currentQuestion: number;
-    handleQuestionChange: (pageNumber: number) => void;
-};
+
 
 const QuestionContainer: React.FC<QuestionContainerProps> = ({
     question,
@@ -41,14 +28,30 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
     currentQuestion,
     handleQuestionChange,
 }) => {
+    const router = useRouter();
     const getAnswer = (questionId: string): answerType | undefined => {
         return answers.find((item) => item.qId == questionId);
     };
+
+    const notMinumumSelected = (): boolean => {
+        return (
+            answers.reduce(
+                (acc, { answered }) => (answered ? acc + 1 : acc),
+                0
+            ) <
+            totalQuestions / 2
+        );
+    };
+
+    const handleNavigation = () => {
+        router.push("/result");
+    };
+
     return (
         <div className="w-full md:max-w-[850px] bg-white rounded-md p-4 md:p-7 flex flex-col justify-between">
             <div className="">
                 <div className="">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between max-md:hidden">
                         <div className="text-sm">
                             {question && (
                                 <div>
@@ -62,15 +65,18 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
                         <Timer />
                     </div>
                     {loading ? (
-                        <Skeleton className="h-8 w-full my-6" />
+                        <>
+                            <Skeleton className="h-7 w-full mt-0 md:mt-6 mb-2  md:my-6" />
+                            <Skeleton className="md:hidden h-7 w-1/3 mb-6 " />
+                        </>
                     ) : question ? (
                         <p
-                            className={`${sourceSans.className} my-6 text-2xl font-semibold`}
+                            className={`font-serif my-6 max-md:mt-0 text-2xl font-semibold`}
                         >
                             {question.question}
                         </p>
                     ) : (
-                        <p className="my-6 text-center">
+                        <p className="my-6 max-md:mt-0 text-center">
                             Please wait while loading question....
                         </p>
                     )}
@@ -115,54 +121,62 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
                                         }
                                         char={String.fromCharCode(65 + index)}
                                     />
-                                    <Label htmlFor="r1">{option.option}</Label>
+                                    <Label htmlFor={option.id}>{option.option}</Label>
                                 </div>
                             ))
                         )}
                     </RadioGroup>
                 </div>
             </div>
-            <div className="flex justify-between">
-                <Button
-                    className="rounded-full"
-                    disabled={
-                        answers.reduce(
-                            (acc, { answered }) => (answered ? acc + 1 : acc),
-                            0
-                        ) <
-                        totalQuestions / 2
-                    }
-                >
-                    End and Submit
-                </Button>
-                <div className="">
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious
-                                    className="bg-gray-100 rounded-full cursor-pointer"
-                                    onClick={() =>
-                                        handleQuestionChange(
-                                            currentQuestion - 1
-                                        )
-                                    }
-                                />
-                            </PaginationItem>
-                            <Button className="rounded-full bg-orange-500">
-                                Flag <Flag fill="#fff" color="#fff" size={15} />
-                            </Button>
-                            <PaginationItem>
-                                <PaginationNext
-                                    className="bg-gray-100 rounded-full cursor-pointer"
-                                    onClick={() =>
-                                        handleQuestionChange(
-                                            currentQuestion + 1
-                                        )
-                                    }
-                                />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
+            <div className="mt-16">
+                <Separator className="mb-5" />
+                <div className="flex justify-between">
+                    <Button
+                        className="rounded-full max-md:hidden"
+                        disabled={notMinumumSelected()}
+                        onClick={handleNavigation}
+                    >
+                        End and Submit
+                    </Button>
+                    <Button
+                        className="rounded-full md:hidden"
+                        disabled={notMinumumSelected()}
+                        onClick={handleNavigation}
+                    >
+                        End & Submit
+                    </Button>
+                    <div className="">
+                        <Pagination>
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <PaginationPrevious
+                                        className="bg-gray-100 rounded-full cursor-pointer"
+                                        onClick={() =>
+                                            handleQuestionChange(
+                                                currentQuestion - 1
+                                            )
+                                        }
+                                    />
+                                </PaginationItem>
+                                <Button
+                                    className="rounded-full "
+                                    variant="secondary"
+                                >
+                                    Flag <Flag size={15} />
+                                </Button>
+                                <PaginationItem>
+                                    <PaginationNext
+                                        className="bg-gray-100 rounded-full cursor-pointer"
+                                        onClick={() =>
+                                            handleQuestionChange(
+                                                currentQuestion + 1
+                                            )
+                                        }
+                                    />
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+                    </div>
                 </div>
             </div>
         </div>

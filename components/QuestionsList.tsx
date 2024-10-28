@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/pagination";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Timer from "./Timer";
-import { answerType } from "./Dashboard";
+import { answerType } from "@/types/propTypes";
 
 type QuestionListProps = {
     answers: answerType[];
@@ -24,7 +24,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({
     currentQuestion,
     handleQuestionChange,
 }) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     return (
         <div
             className={
@@ -69,7 +69,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({
                                             : currentQuestion == index + 1
                                             ? `bg-white border-orange-500 border-2`
                                             : `bg-gray-200 text-gray-500 hover:bg-gray-200`) +
-                                        ` rounded-full w-8 h-8 cursor-pointer`
+                                        ` rounded-full w-8 h-8 cursor-pointer select-none`
                                     }
                                 >
                                     {index + 1}

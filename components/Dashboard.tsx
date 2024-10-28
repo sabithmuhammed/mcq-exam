@@ -4,12 +4,9 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuestionsList from "./QuestionsList";
 import QuestionContainer from "./QuestionContainer";
 import { getQuestions, Question } from "@/app/api/questions";
+import { answerType } from "@/types/propTypes";
 
-export interface answerType {
-    qId: string;
-    answered: boolean;
-    option: null | string;
-}
+
 
 const Dashboard: React.FC = () => {
     const TOTAL_QUESTIONS = 30;

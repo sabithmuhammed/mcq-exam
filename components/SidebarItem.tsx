@@ -1,13 +1,8 @@
 "use client";
+import { SidebarItemProps } from "@/types/propTypes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
-
-export type SidebarItemProps = {
-    text: string;
-    icon: ReactNode;
-    href: string;
-};
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ text, icon, href }) => {
     const pathname = usePathname();
@@ -21,7 +16,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ text, icon, href }) => {
                     : `text-gray-700 hover:bg-gray-100`
             } `}
         >
-            <div className={isActive?`text-white`:'text-orange-500'}>{icon}</div>
+            <div className={isActive ? `text-white` : "text-orange-500"}>
+                {icon}
+            </div>
             <div className="max-md:hidden">{text}</div>
         </Link>
     );

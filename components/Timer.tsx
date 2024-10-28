@@ -1,7 +1,10 @@
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Timer: React.FC = () => {
     const [time, setTime] = useState(3600);
+
+    const router = useRouter();
 
     useEffect(() => {
         const timerInterval = setInterval(() => {
@@ -14,9 +17,12 @@ const Timer: React.FC = () => {
         const hours = Math.floor(seconds / 3600);
         const mins = Math.floor((seconds % 3600) / 60);
         const sec = seconds % 60;
-        return ` ${hours == 0 ? "00" : ""}:${mins < 10 ? "0" : ""}${mins}:${
-            sec < 10 ? "0" : ""
-        }${sec}`;
+        if (seconds <= 0) {
+            router.push("/result");
+        }
+        return ` ${hours == 0 ? "00" : "0" + hours}:${
+            mins < 10 ? "0" : ""
+        }${mins}:${sec < 10 ? "0" : ""}${sec}`;
     };
     return (
         <div

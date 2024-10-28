@@ -9,7 +9,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
-import SidebarItem, { SidebarItemProps } from "./SidebarItem";
+import SidebarItem from "./SidebarItem";
+import { SidebarItemProps } from "@/types/propTypes";
 
 const Sidebar: React.FC = () => {
     const [navOpen, setNavOpen] = useState(false);
