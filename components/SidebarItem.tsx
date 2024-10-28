@@ -2,7 +2,7 @@
 import { SidebarItemProps } from "@/types/propTypes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { ReactNode } from "react";
+import React from "react";
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ text, icon, href }) => {
     const pathname = usePathname();

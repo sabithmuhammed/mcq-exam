@@ -1,13 +1,10 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { Separator } from "./ui/separator";
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Timer from "./Timer";

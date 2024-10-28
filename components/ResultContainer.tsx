@@ -2,7 +2,6 @@ import React from "react";
 import ChartComponent from "./ChartComponent";
 import { Button } from "./ui/button";
 import { Copy, PhoneCall } from "lucide-react";
-import { Separator } from "@radix-ui/react-separator";
 
 
 
